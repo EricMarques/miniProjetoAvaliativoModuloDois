@@ -13,7 +13,6 @@ __pycache__/
 venv/
 .ipynb_checkpoints/
 
-*.sql~
 *.bak
 .DS_Store
 thumbs.db
