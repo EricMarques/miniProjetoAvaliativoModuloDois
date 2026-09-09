@@ -1,0 +1,2 @@
+python-dotenv==1.2.3
+mysql-connector-python==26.7.0

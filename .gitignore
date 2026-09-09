@@ -1,0 +1,19 @@
+# ----- Credenciais (NUNCA versionar) -----
+.env
+
+# ----- Dados baixados/locais (NUNCA versionar) -----
+data/
+*.zip
+*.csv
+
+# ----- Python -----
+__pycache__/
+*.pyc
+.venv/
+venv/
+.ipynb_checkpoints/
+
+*.sql~
+*.bak
+.DS_Store
+thumbs.db
