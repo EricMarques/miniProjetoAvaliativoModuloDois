@@ -4,7 +4,7 @@ banco.py
 Tudo que envolve o banco de dados fica aqui, separado da logica do pipeline
 (boa pratica: nao misturar conexao com regra de negocio).
 
-Obs.: o database (banco) e criado ANTES, colando o '0_criar_banco.txt' no
+Obs.: o database (banco) e criado ANTES, no
 MySQL Workbench. Aqui a gente apenas se conecta a ele.
 """
 
