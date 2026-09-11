@@ -79,7 +79,7 @@ SELECT DISTINCT
     `CodPraca` AS cod_praca,
     MAX(`NomePraca`) AS nome_praca,
     MAX(`Regional`) AS regional,
-    CAST(REPLACE(MAX(`Domicilios com Pet`), '.', '') AS SIGNED) AS domicilios_com_pet
+    CAST(REPLACE(MAX(`DomiciliosComPet`), '.', '') AS SIGNED) AS domicilios_com_pet
 FROM stg_loja_praca
 GROUP BY `CodPraca`;
 
@@ -93,9 +93,9 @@ GROUP BY `CodPraca`;
 -- >>> ESCREVA AQUI: o INSERT ... SELECT da bridge_loja_praca
 INSERT INTO bridge_loja_praca (cod_loja, sk_praca, fator_publico)
 SELECT
-    p.`Cod Loja` AS cod_loja,
+    p.`CodLoja` AS cod_loja,
     dp.sk_praca,
-    CAST(REPLACE(p.`% Publico`, ',', '.') AS DECIMAL(6,4)) / 100 AS fator_publico
+    CAST(REPLACE(p.`PercentualPublico`, ',', '.') AS DECIMAL(6,4)) AS fator_publico
 FROM stg_loja_praca p
 JOIN dim_praca dp ON dp.cod_praca = p.`CodPraca`;
 
