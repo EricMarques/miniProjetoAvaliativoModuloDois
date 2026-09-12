@@ -46,7 +46,7 @@ SELECT
     ROUND(100 * SUM(fp.vl_liquido) / (SELECT SUM(vl_liquido) FROM fato_pedido), 2) AS percentual_do_total
 FROM fato_pedido fp
 JOIN dim_categoria dc ON dc.sk_categoria = fp.sk_categoria
-GROUP BY dc.sk_categoria, dc.nome_categoria, dc.grupo_categoria
+GROUP BY dc.nome_categoria, dc.grupo_categoria
 ORDER BY faturamento DESC;
 
 
@@ -120,9 +120,10 @@ ORDER BY itens_por_mil_hab DESC;
 --      responde "quanto veio de lojas que JA ERAM Ouro na data do pedido": o
 --      cadastro so tem a foto de hoje.
 SELECT
-    faixa_franquia,
+    dl.faixa_franquia,
     ROUND(SUM(fp.vl_liquido), 2) AS faturamento,
-    ROUND(100 * SUM(fp.vl_liquido) / (SELECT SUM(vl_liquido) FROM fato_pedido), 2) AS percentual_do_total
+    ROUND(100 * SUM(fp.vl_liquido) / (SELECT SUM(vl_liquido) FROM fato_pedido), 2) AS percentual_do_total,
+    COUNT(DISTINCT dl.sk_loja) AS numero_de_lojas
 FROM fato_pedido fp
 JOIN dim_loja dl ON dl.sk_loja = fp.sk_loja
 WHERE fp.sk_loja <> -1
