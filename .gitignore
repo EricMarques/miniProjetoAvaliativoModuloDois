@@ -1,10 +1,8 @@
 # ----- Credenciais (NUNCA versionar) -----
 .env
 
-# ----- Dados baixados/locais (NUNCA versionar) -----
-data/
+# ----- Dados baixados/locais -----
 *.zip
-*.csv
 
 # ----- Python -----
 __pycache__/

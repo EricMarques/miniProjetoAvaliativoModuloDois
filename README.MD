@@ -35,7 +35,7 @@ responder:
 
 ### Modelo Dimensional
 
-![Diagrama Pata Amiga](diagrama/DiagramaPataAmiga.png)
+![Diagrama Pata Amiga](images/DiagramaPataAmiga.png)
 
 Grão da fato: 1 linha = 1 pedido (4.044 linhas)
 
@@ -143,17 +143,54 @@ Regra geral:
 - TEL → "Telefone"
 - nenhum → "Nao Informado"
 
+ 
+## Execução do Projeto
+ 
+### Pré-requisitos
+ 
+Antes de começar, certifique-se de ter:
+ 
+- MySQL 8.0 ou superior instalado e rodando
+- Acesso a um banco de dados (ou permissão para criar um)
+- Git instalado (para versionamento)
+- Editor de texto ou IDE SQL (MySQL Workbench, DBeaver, VS Code com extensão SQL, etc)
 
-## Execução
-
-Para reproduzir o banco do zero, rode os scripts na seguinte ordem:
-
-1. `01-diagnostico.sql` - Valida as tabelas de entrada
-2. `02-dimensoes-prontas.sql` - Cria dim_tempo e dim_loja (já vêm prontas)
-3. `03-dimensoes-tratadas.sql` - Cria dim_categoria, dim_praca e bridge_loja_praca
-4. `04-fato-pedido.sql` - Constrói fato_pedido com 4.044 linhas
-5. `05-respostas.sql` - As cinco consultas que respondem as perguntas
-6. `00-conferencia.sql` - Valida os números contra os esperados
+### Preparação do Ambiente
+ 
+#### 1. Clonar o Repositório
+ 
+```bash
+git clone https://github.com/EricMarques/miniProjetoAvaliativoModuloDois.git
+cd miniProjetoAvaliativoModuloDois
+```
+ 
+#### 2. Criar o Banco de Dados
+ 
+No MySQL, execute:
+ 
+```sql
+CREATE DATABASE dw_pata_amiga CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+USE dw_pata_amiga;
+```
+ 
+---
+ 
+### Execução dos Scripts SQL
+ 
+Os scripts **devem ser executados em ordem**. Cada um depende do anterior.
+ 
+#### Via MySQL Workbench ou DBeaver
+ 
+1. Abra sua ferramenta SQL
+2. Conecte ao banco `dw_pata_amiga`
+3. Abra cada arquivo SQL em ordem:
+   - `pipelines/01-carga-staging.sql`
+   - `pipelines/02-dimensoes-prontas.sql`
+   - `pipelines/03-dimensoes.sql`
+   - `pipelines/04-fato.sql`
+   - `pipelines/05-perguntas.sql`
+4. Execute cada script (Ctrl+Enter ou botão de play)
+5. Valide com `pipelines/00-conferencia.sql` após cada etapa
 
 
 ## Respostas às cinco perguntas
@@ -166,12 +203,24 @@ Para reproduzir o banco do zero, rode os scripts na seguinte ordem:
 
 **Tempo médio (em dias) por porte de loja:**
  
-| Porte | Integração→Separação | Separação→Nota | Nota→Despacho | Despacho→Entrega | **Total (ERP→Entrega)** |
+| Porte | Integração→Separação | Separação→Nota Fiscal | Nota Fiscal→Despacho | Despacho→Entrega | **Total (ERP→Entrega)** |
 |-------|----------------------|-----------------|----------------|------------------|----------------------|
-| Nao Informado | 2.0 | 0.0 | 4.0 | 3.0 | 8.5 |
-| Pequena | 3.1 | 0.7 |	8.5 | 2.9 |	15.3 |
-| Média | 2.1 |	0.6 | 3.3 |	2.0 | 8.1 |
 | Grande | 2.1 | 0.6 | 3.3 | 2.0 | 8.0 |
+| Pequena | 3.1 | 0.7 |	8.5 | 2.9 |	15.3 |
+| Nao Informado | 2.0 | 0.0 | 4.0 | 3.0 | 8.5 |
+| Média | 2.1 |	0.6 | 3.3 |	2.0 | 8.1 |
+
+### O QUE CADA COLUNA SIGNIFICA
+ 
+| Coluna | Significado |
+|--------|-------------|
+| **Porte da Loja** | Tamanho da loja: Não Informado, Pequena, Média ou Grande |
+| **Integração → Separação** | Dias desde o pedido chegar no ERP até a separação em estoque |
+| **Separação → Nota Fiscal** | Dias para gerar a nota fiscal após separação |
+| **Nota Fiscal → Despacho** | Dias para entregar à transportadora após nota fiscal (GARGALO!) |
+| **Despacho → Entrega** | Dias do despacho até chegar na casa do cliente |
+| **TOTAL (ERP→Entrega)** | Dias totais desde o pedido até a entrega (soma dos 4 intervalos) |
+
  
 **Análise crítica**: Observando os dados, vejo que lojas pequenas levam praticamente o dobro de tempo que lojas grandes (15,3 dias contra 8,0 dias). O problema não está distribuído - está concentrado num único lugar: entre a nota fiscal e o despacho. Lojas pequenas gastam 8,5 dias aí, enquanto as grandes fazem em 3,3 dias.
 
@@ -202,6 +251,16 @@ Se conseguir reduzir os 8,5 dias para 4 dias nesse intervalo crítico, as lojas 
 | Higiene | Saude e Higiene | R$92314.45 | 5.15% |
 | Acessorio | Bem-estar | R$64661.39 | 3.61% |
 | Brinquedo | Bem-estar | R$31634.56 | 1.76% |
+
+### O QUE CADA COLUNA SIGNIFICA
+ 
+| Coluna | Significado |
+|--------|-------------|
+| **Categoria** | Nome padronizado da categoria (7 total) |
+| **Grupo** | Agrupamento maior (Alimentação, Saúde e Higiene, Bem-estar) |
+| **Faturamento (R$)** | Valor total vendido em reais, arredondado em 2 casas |
+| **% do Total** | Percentual que essa categoria representa do faturamento total da rede |
+
  
 **Análise crítica**: Olhando para os números, fica bem claro que a Pata Amiga é fundamentalmente um negócio de comida para pets. Ração sozinha representa 60% do faturamento. Se somar ração com petisco, chego a 67% - mais de duas terços do negócio.
 
@@ -231,7 +290,7 @@ A Pata Amiga é fundamentalmente um negócio de comida para pets, não acessóri
 
 **Ticket médio com e sem desconto por canal:**
  
-| Canal | Ticket Médio Geral | Com Desconto | Sem Desconto | % Faturamento |
+| Canal | Ticket médio | Ticket médio com desconto | Ticket médio sem desconto | Percentual do faturamento |
 |-------|-------------------|--------------|--------------|--------------|
 | App | R$433.73 | R$470.92 | R$162.39 | 30.79% |
 | Site | R$436.60 | R$484.23 | R$184.69 | 25.13% |
@@ -239,6 +298,18 @@ A Pata Amiga é fundamentalmente um negócio de comida para pets, não acessóri
 | WhatsApp | R$455.75 | R$502.23 | R$176.06 | 10.52% |
 | Telefone | R$467.50 | R$506.94 | R$195.23 | 6.88% |
 | Nao Informado | R$497.17 | R$539.35 | R$191.62 | 6.57% |
+
+
+### O QUE CADA COLUNA SIGNIFICA
+ 
+| Coluna | Significado |
+|--------|-------------|
+| **Canal** | Canal onde o pedido foi realizado |
+| **Ticket médio** | Ticket médio considerando todos os pedidos do canal |
+| **Ticket médio com desconto** | Ticket médio dos pedidos que tiveram desconto |
+| **Ticket médio sem desconto** | Ticket médio dos pedidos que não tiveram desconto |
+| **Percentual do faturamento** | Participação do canal no faturamento total |
+
 
 **Análise crítica**: Os números mostram que o desconto tem impacto completamente diferente dependendo do canal.
 
@@ -263,7 +334,7 @@ Sugere que a política deveria ser revista - talvez cupom com mínimo de compra 
 
 **Faturamento rateado por praça (com fator de rateio):**
  
-| Praça | Regional | Domicílios com Pet | Faturamento | % do Total |
+| Praça | Região | Domicílios com animais | Faturamento rateado | Percentual do faturamento |
 |-------|----------|-------------------|------------|-----------|
 | Vale do Itajai | Regional Leste | 148000 | R$633746.09 | 35.34% |
 | Grande Florianopolis | Regional Leste | 132000 | R$283546.75 | 15.81% |
@@ -278,6 +349,17 @@ Sugere que a política deveria ser revista - talvez cupom com mínimo de compra 
 | Planalto Norte | Regional Norte | 33000 | R$31100.84 | 1.73% |
 | Planalto Serrano | Regional Oeste | 29000 | R$29323.10 | 1.64% |
  
+
+### O QUE CADA COLUNA SIGNIFICA
+ 
+| Coluna | Significado |
+|--------|-------------|
+| **Praça** | Praça de atendimento relacionada à loja |
+| **Região** | Regional à qual a praça pertence |
+| **Domicílios com animais** | Quantidade de domicílios com animais na praça |
+| **Faturamento rateado** | Faturamento atribuído à praça após aplicar o fator de rateio |
+| **Percentual do faturamento** | Participação da praça no faturamento total |
+
 
 **Análise crítica**: Vale do Itajaí concentra 35% do faturamento, o que faz sentido - é uma região maior com 148 mil domicílios com pet. Grande Florianópolis vem depois com 16%, também região grande.
 
@@ -295,6 +377,18 @@ Vale do Itajaí lidera com 35% do faturamento. A rede tem presença em 12 praça
 **Validação**: A soma do faturamento rateado + pedidos sem loja:
 A soma do faturamento rateado por praça (R$ 1.792.322) + pedidos sem loja (R$ 986) = R$ 1.793.308, que fecha exatamente com o total da rede da P2
 
+| Total da fato | Total rateado por praça | Faturamento sem loja | Diferença |
+|-------|----------|-------------------|-----------|
+| 1793309 | 1792322 | 986 | 0 |
+
+### O QUE CADA COLUNA SIGNIFICA
+| Coluna | Significado |
+|--------|-------------|
+| Total da fato | Faturamento total registrado na tabela fato_pedido |
+| Total rateado por praça | Faturamento distribuído entre as praças utilizando o fator_publico |
+| Faturamento sem loja | Faturamento dos pedidos que não possuem uma loja associada (sk_loja = -1) |
+| Diferença | Valor restante após descontar do faturamento total o valor rateado pelas praças e o faturamento sem loja |
+
 ### P5: Onde abrir a próxima loja?
 a) Ranqueie as lojas por itens vendidos por mil habitantes da cidade  não em valor absoluto  e cruze com o tempo médio de entrega. 
 
@@ -307,7 +401,7 @@ c) Meça o que ficou de fora: pedidos sem loja identificada, entregas ainda não
  
 **Melhorias potenciais** (lojas com maior densidade de vendas):
  
-| Posição | Loja | Cidade | População | Itens Totais | Itens/mil hab | Tempo Médio Entrega |
+| Posição | Loja | Cidade | População da cidade | Itens Totais | Itens por mil habitantes | Tempo médio de entrega (dias) |
 |---------|------|--------|-----------|-------------|---------------|-------------------|
 | 1º | Pata Amiga Rio dos Cedros | Rio dos Cedros | 11322 | 61 | 5.39 | 14.3 dias |
 | 2º | Pata Amiga Presidente Getulio | Presidente Getúlio | 16359 | 88 | 5.38 | 14.3 dias |
@@ -319,15 +413,35 @@ c) Meça o que ficou de fora: pedidos sem loja identificada, entregas ainda não
 | 8º | Pata Amiga Gaspar | Gaspar | 71133 | 181 | 2.54 | 8.1 dias |
 | 9º | Pata Amiga Otacilio Costa | Otacílio Costa | 18227 | 44 | 2.41 | 15.7 dias |
 | 10º | Pata Amiga Rio do Sul | Rio do Sul | 73135 | 149 | 2.04 | 8.5 dias |
+
+### O QUE CADA COLUNA SIGNIFICA
+| Coluna | Significado |
+|--------|-------------|
+| Loja | Nome da loja analisada |
+| Cidade | Cidade onde a loja está localizada |
+| População da cidade | População utilizada como base para calcular o indicador |
+| Itens totais | Quantidade total de pedidos/itens registrados para a loja |
+| Itens por mil habitantes | Quantidade de itens para cada mil habitantes da cidade |
+| Tempo médio de entrega (dias) | Tempo médio necessário para realizar as entregas da loja |
+
  
 #### (b) Faturamento por faixa de franquia (foto de HOJE)
  
-| Faixa | Faturamento | % do Total | Número de Lojas |
+| Faixa de franquia | Faturamento | Percentual do total | Número de Lojas |
 |-------|------------|-----------|-----------------|
 | Bronze | R$84036.06 | 4.69% | 4 |
 | Prata | R$314812.03 | 17.55% | 8 |
 | Ouro | R$1011264.38 | 56.39% | 15 |
 | Diamante | R$382209.74 | 21.31% | 5 |
+
+### O QUE CADA COLUNA SIGNIFICA
+| Coluna | Significado |
+|--------|-------------|
+| Faixa de franquia | Classificação atual da loja em relação à franquia |
+| Faturamento | Faturamento total dos pedidos associados à faixa |
+| Percentual do total | Participação da faixa no faturamento total |
+| Número de lojas | Quantidade de lojas distintas pertencentes à faixa |
+
  
 **Limitação crítica**: Este número **NÃO responde** "quanto veio de lojas que **JÁ ERAM** Ouro na data do pedido" porque:
 - O cadastro (stg_loja) só tem a **foto de hoje** (31/03/2024)
@@ -344,6 +458,14 @@ c) Meça o que ficou de fora: pedidos sem loja identificada, entregas ainda não
 | Entregas ainda não concluídas | 1953 | R$	873892.40 |
 | Itens em branco ou zero | 257 | R$119711.86 |
 | Valores em branco ou zero | 121 | - |
+
+### O QUE CADA COLUNA SIGNIFICA
+| Coluna | Significado |
+|--------|-------------|
+| O que ficou de fora | Tipo de informação que apresenta algum problema ou ausência |
+| Quantidade | Quantidade de registros encontrados em cada situação |
+| Faturamento | Valor financeiro associado aos registros encontrados |
+
 
 **Análise crítica**: Quando olho o ranking de lojas, Rio dos Cedros lidera com 5,39 itens por mil habitantes. É uma cidade pequena (11 mil pessoas) mas vende bem. Rio dos Cedros, Presidente Getúlio e Ibirama ficam nos três primeiros - tudo cidades pequenas com alta densidade de vendas.
 
@@ -400,34 +522,24 @@ Com base nos dados, recomendo: **Expandir em cidades médias ainda sub-explorada
 ```
 miniProjetoAvaliativoModular/
 │
-├── config/                          (Configurações do projeto)
-│   ├── banco.py
-│   ├── conexao.py
-│   └── config.py
-│
 ├── data/                            (Dados em CSV - inputs)
 │   ├── stg_loja_praca.csv
 │   ├── stg_loja.csv
 │   └── stg_pedido.csv
 │
-├── diagrama/                        (Modelo Dimensional)
+├── images/                        (Modelo Dimensional)
 │   └── DiagramaPataAmiga.png
 │
 ├── pipelines/                       (Scripts SQL - execução em ordem)
-│   ├── 00-conferencia.sql           (Validação - rode após cada etapa)
+│   ├── 00-conferencia.sql           (Validação das consultas. Recomendado executar após as etapas.)
 │   ├── 01-carga-staging.sql         (1º - Carrega CSVs nas tabelas stg_)
 │   ├── 02-dimensoes-prontas.sql     (2º - Cria dim_tempo e dim_loja prontas)
 │   ├── 03-dimensoes.sql             (3º - Cria dim_categoria, dim_praca, bridge)
 │   ├── 04-fato.sql                  (4º - Carrega fato_pedido com 4.044 linhas)
 │   └── 05-perguntas.sql             (5º - As 5 consultas que respondem tudo)
 │
-├── view/                            (Visualizações)
-│   └── (pasta para futuras análises visuais)
-│
-├── .env                             (Variáveis de ambiente - NÃO commitr)
-├── .env.example                     (Template do .env - commitar)
+├── .env.example                     (Template do .env, caso necessário)
 ├── .gitignore                       (Arquivos a ignorar no git)
-├── requirements.txt                 (Dependências Python)
 ├── README.MD                        (Documentação do projeto)
 ```
 
