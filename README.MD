@@ -292,12 +292,12 @@ A Pata Amiga é fundamentalmente um negócio de comida para pets, não acessóri
  
 | Canal | Ticket médio | Ticket médio com desconto | Ticket médio sem desconto | Percentual do faturamento |
 |-------|-------------------|--------------|--------------|--------------|
-| App | R$433.73 | R$470.92 | R$162.39 | 30.79% |
-| Site | R$436.60 | R$484.23 | R$184.69 | 25.13% |
-| Loja Fisica | R$437.72 | R$481.65 | R$189.73 | 20.11% |
-| WhatsApp | R$455.75 | R$502.23 | R$176.06 | 10.52% |
-| Telefone | R$467.50 | R$506.94 | R$195.23 | 6.88% |
-| Nao Informado | R$497.17 | R$539.35 | R$191.62 | 6.57% |
+| App | R$448.53 | R$470.92 | R$162.39 | 30.79% |
+| Site | R$451.47 | R$484.23 | R$184.69 | 25.13% |
+| Loja Fisica | R$450.28 | R$481.65 | R$189.73 | 20.11% |
+| WhatsApp | R$465.87 | R$502.23 | R$176.06 | 10.52% |
+| Telefone | R$472.87 | R$506.94 | R$195.23 | 6.88% |
+| Nao Informado | R$519.07 | R$539.35 | R$191.62 | 6.57% |
 
 
 ### O QUE CADA COLUNA SIGNIFICA
@@ -403,38 +403,38 @@ c) Meça o que ficou de fora: pedidos sem loja identificada, entregas ainda não
  
 | Posição | Loja | Cidade | População da cidade | Itens Totais | Itens por mil habitantes | Tempo médio de entrega (dias) |
 |---------|------|--------|-----------|-------------|---------------|-------------------|
-| 1º | Pata Amiga Rio dos Cedros	Rio dos | Cedros |	11322 |	61 |	5.39 |	14.3 |
-| 2º | Pata Amiga Presidente Getulio	Presidente | Getúlio |	16359 |	88 |	5.38 |	14.3 |
-| 3º | Pata Amiga Ibirama |	Ibirama |	18613 |	98 |	5.27 |	15.5 |
-| 4º | Pata Amiga Itapoa |	Itapoá |	20586 |	84 |	4.08 |	15.5 |
-| 5º | Pata Amiga Santo Amaro da Imperatriz	Santo Amaro da | Imperatriz |	22357 |	85 |	3.80 |	16.0 |
-| 6º | Pata Amiga Taio |	Taió |	18173 |	59 |	3.25 |	14.6 |
-| 7º | Pata Amiga Timbo |	Timbó |	45011 |	123 |	2.73 |	7.8 |
-| 8º | Pata Amiga Gaspar |	Gaspar |	71133 |	181 |	2.54 |	8.1 |
-| 9º | Pata Amiga Otacilio Costa	Otacílio | Costa |	18227 |	44 |	2.41 |	15.7 |
-| 10º | Pata Amiga Rio do Sul	Rio do | Sul |	73135 |	149 |	2.04 |	8.5 |
-| 11º | Pata Amiga Ituporanga |	Ituporanga |	25748 |	51 |	1.98 |	16.6 |
-| 12º | Pata Amiga Indaial |	Indaial |	71987 |	128 |	1.78 |	7.8 |
-| 13º | Pata Amiga Laguna |	Laguna |	46122 |	80 |	1.73 |	8.7 |
-| 14º | Pata Amiga Sao Joaquim	São | Joaquim |	27234 |	45 |	1.65 |	15.2 |
-| 15º | Pata Amiga Ararangua |	Araranguá |	68274 |	107 |	1.57 |	8.3 |
-| 16º | Pata Amiga Tubarao |	Tubarão |	105511 |	157 |	1.49 |	7.8 |
-| 17º | Pata Amiga Jaragua do Sul	Jaraguá do | Sul |	184579 |	239 |	1.29 |	8.2 |
-| 18º | Pata Amiga Sao Bento do Sul	São Bento do | Sul |	87310 |	105 |	1.20 |	8.3 |
-| 19º | Pata Amiga Curitibanos |	Curitibanos |	39061 |	47 |	1.20 |	8.8 |
-| 20º | Pata Amiga Concordia |	Concórdia |	74641 |	89 |	1.19 |	7.8 |
-| 21º | Pata Amiga Xanxere |	Xanxerê |	52034 |	54 |	1.04 |	8.2 |
-| 22º | Pata Amiga Palhoca |	Palhoça |	168259 |	172 |	1.02 |	7.8 |
-| 23º | Pata Amiga Sao Miguel do Oeste	São Miguel do | Oeste |	41520 |	42 |	1.01 |	8.1 |
-| 24º | Pata Amiga Blumenau Centro |	Blumenau |	361855 |	315 |	0.87 |	7.9 |
-| 25º | Pata Amiga Brusque |	Brusque |	143270 |	122 |	0.85 |	7.7 |
-| 26º | Pata Amiga Criciuma |	Criciúma |	217392 |	152 |	0.70 |	8.2 |
-| 27º | Pata Amiga Lages |	Lages |	158846 |	107 |	0.67 |	7.8 |
+| 1º | Pata Amiga Blumenau Centro |	Blumenau |	361855 |	315 |	0.87 |	7.9 |
+| 2º | Pata Amiga Rio do Sul	Rio do | Sul |	73135 |	149 |	2.04 |	8.5 |
+| 3º | Pata Amiga Itajai Praia |	Itajaí |	264054 |	159 |	0.60 |	8.1 |
+| 4º | Pata Amiga Brusque |	Brusque |	143270 |	122 |	0.85 |	7.7 |
+| 5º | Pata Amiga Timbo |	Timbó |	45011 |	123 |	2.73 |	7.8 |
+| 6º | Pata Amiga Indaial |	Indaial |	71987 |	128 |	1.78 |	7.8 |
+| 7º | Pata Amiga Gaspar |	Gaspar |	71133 |	181 |	2.54 |	8.1 |
+| 8º | Pata Amiga Presidente Getulio	Presidente | Getúlio |	16359 |	88 |	5.38 |	14.3 |
+| 9º | Pata Amiga Taio |	Taió |	18173 |	59 |	3.25 |	14.6 |
+| 10º | Pata Amiga Ituporanga |	Ituporanga |	25748 |	51 |	1.98 |	16.6 |
+| 11º | Pata Amiga Ibirama |	Ibirama |	18613 |	98 |	5.27 |	15.5 |
+| 12º | Pata Amiga Rio dos Cedros	Rio dos | Cedros |	11322 |	61 |	5.39 |	14.3 |
+| 13º | Pata Amiga Joinville Sul |	Joinville |	597658 |	309 |	0.52 |	7.9 |
+| 14º | Pata Amiga Jaragua do Sul	Jaraguá do | Sul |	184579 |	239 |	1.29 |	8.2 |
+| 15º | Pata Amiga Sao Bento do Sul	São Bento do | Sul |	87310 |	105 |	1.20 |	8.3 |
+| 16º | Pata Amiga Itapoa |	Itapoá |	20586 |	84 |	4.08 |	15.5 |
+| 17º | Pata Amiga Florianópolis Norte |	Florianópolis |	537213 |	275 |	0.51 |	8.1 |
+| 18º | Pata Amiga Sao José Kobrasol	São | José |	250181 |	155 |	0.62 |	8.1 |
+| 19º | Pata Amiga Palhoça |	Palhoça |	168259 |	172 |	1.02 |	7.8 |
+| 20º | Pata Amiga Santo Amaro da Imperatriz	Santo Amaro da | Imperatriz |	22357 |	85 |	3.80 |	16.0 |
+| 21º | Pata Amiga Criciuma |	Criciúma |	217392 |	152 |	0.70 |	8.2 |
+| 22º | Pata Amiga Tubarao |	Tubarão |	105511 |	157 |	1.49 |	7.8 |
+| 23º | Pata Amiga Ararangua |	Araranguá |	68274 |	107 |	1.57 |	8.3 |
+| 25º | Pata Amiga Laguna |	Laguna |	46122 |	80 |	1.73 |	8.7 |
+| 25º | Pata Amiga Lages |	Lages |	158846 |	107 |	0.67 |	7.8 |
+| 26º | Pata Amiga Sao Joaquim	São | Joaquim |	27234 |	45 |	1.65 |	15.2 |
+| 27º | Pata Amiga Curitibanos |	Curitibanos |	39061 |	47 |	1.20 |	8.8 |
 | 28º | Pata Amiga Chapeco |	Chapecó |	254235 |	159 |	0.63 |	8.0 |
-| 29º | Pata Amiga Sao Jose Kobrasol	São | José |	250181 |	155 |	0.62 |	8.1 |
-| 30º | Pata Amiga Itajai Praia |	Itajaí |	264054 |	159 |	0.60 |	8.1 |
-| 31º | Pata Amiga Joinville Sul |	Joinville |	597658 |	309 |	0.52 |	7.9 |
-| 32º | Pata Amiga Florianopolis Norte |	Florianópolis |	537213 |	275 |	0.51 |	8.1 |
+| 29º | Pata Amiga Concordia |	Concórdia |	74641 |	89 |	1.19 |	7.8 |
+| 30º | Pata Amiga Xanxere |	Xanxerê |	52034 |	54 |	1.04 |	8.2 |
+| 31º | Pata Amiga Sao Miguel do Oeste	São Miguel do | Oeste |	41520 |	42 |	1.01 |	8.1 |
+| 32º | Pata Amiga Otacilio Costa	Otacílio | Costa |	18227 |	44 |	2.41 |	15.7 |
 
 ### O QUE CADA COLUNA SIGNIFICA
 | Coluna | Significado |
@@ -452,9 +452,9 @@ c) Meça o que ficou de fora: pedidos sem loja identificada, entregas ainda não
 | Faixa de franquia | Faturamento | Percentual do total | Número de Lojas |
 |-------|------------|-----------|-----------------|
 | Bronze | R$84036.06 | 4.69% | 4 |
-| Prata | R$314812.03 | 17.55% | 8 |
-| Ouro | R$1011264.38 | 56.39% | 15 |
 | Diamante | R$382209.74 | 21.31% | 5 |
+| Ouro | R$1011264.38 | 56.39% | 15 |
+| Prata | R$314812.03 | 17.55% | 8 |
 
 ### O QUE CADA COLUNA SIGNIFICA
 | Coluna | Significado |

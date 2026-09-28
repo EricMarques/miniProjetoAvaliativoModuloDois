@@ -95,7 +95,7 @@ SELECT
          ELSE CAST(REPLACE(REPLACE(p.`ValorLiquidoPedido(R$)`, 'R$', ''), ' ', '') AS DECIMAL(15,2))
     END,
     CASE WHEN p.`Dt Separacao Estoque` = '' THEN NULL
-         ELSE DATEDIFF(DATE(p.`Dt Separacao Estoque`), DATE(STR_TO_DATE(p.`DtHoraPedido`, '%m/%d/%Y %h:%i %p')))
+         ELSE DATEDIFF(DATE(p.`Dt Separacao Estoque`), DATE(p.`DtHoraIntegracaoERP`))
     END,
     CASE WHEN p.`DtNotaFiscal` = '' THEN NULL
          ELSE DATEDIFF(DATE(p.`DtNotaFiscal`), DATE(p.`Dt Separacao Estoque`))
@@ -107,7 +107,7 @@ SELECT
          ELSE DATEDIFF(DATE(p.`DtEntregaCliente`), DATE(p.`Dt_Despacho_Transportadora`))
     END,
     CASE WHEN p.`DtEntregaCliente` = '' THEN NULL
-         ELSE DATEDIFF(DATE(p.`DtEntregaCliente`), DATE(STR_TO_DATE(p.`DtHoraPedido`, '%m/%d/%Y %h:%i %p')))
+         ELSE DATEDIFF(DATE(p.`DtEntregaCliente`), DATE(p.`DtHoraIntegracaoERP`))
     END
 FROM stg_pedido p
 LEFT JOIN dim_loja dl ON dl.chave_loja = UPPER(TRIM(REPLACE(REPLACE(p.`Loja-Nome`, '/SC', ''), '  ', ' ')))
