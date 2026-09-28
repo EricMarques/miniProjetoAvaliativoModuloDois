@@ -61,7 +61,7 @@ ORDER BY Faturamento DESC;
 -- >>> ESCREVA AQUI a consulta da P3
 SELECT
     canal_pedido AS Canal,
-    ROUND(SUM(vl_liquido) / COUNT(*), 2) AS "Ticket medio",
+    ROUND(AVG(vl_liquido), 2) AS "Ticket médio",
     ROUND(SUM(CASE WHEN houve_desconto = 'Sim' THEN vl_liquido END) / 
           NULLIF(COUNT(CASE WHEN houve_desconto = 'Sim' THEN 1 END), 0), 2) AS "Ticket médio com desconto",
     ROUND(SUM(CASE WHEN houve_desconto = 'Nao' THEN vl_liquido END) / 
@@ -69,7 +69,7 @@ SELECT
     ROUND(100 * SUM(vl_liquido) / (SELECT SUM(vl_liquido) FROM fato_pedido), 2) AS "Percentual do faturamento"
 FROM fato_pedido
 GROUP BY canal_pedido
-ORDER BY "Percentual do faturamento" DESC;
+ORDER BY ROUND(100 * SUM(vl_liquido) / (SELECT SUM(vl_liquido) FROM fato_pedido), 2) DESC;
 
 
 -- =====================================================================================
@@ -93,7 +93,7 @@ JOIN dim_loja dl ON dl.sk_loja = fp.sk_loja
 JOIN bridge_loja_praca bp ON bp.cod_loja = dl.cod_loja
 JOIN dim_praca dp ON dp.sk_praca = bp.sk_praca
 GROUP BY dp.sk_praca, dp.nome_praca, dp.regional, dp.domicilios_com_pet
-ORDER BY "Faturamento rateado" DESC;
+ORDER BY ROUND(SUM(fp.vl_liquido * bp.fator_publico), 2) DESC;
 
 
 SELECT
@@ -121,8 +121,8 @@ SELECT
     dl.nome_loja AS "Loja",
     dl.cidade AS "Cidade",
     dl.populacao_cidade AS "População da cidade",
-    COUNT(fp.sk_pedido) AS "Itens totais",
-    ROUND(1000 * COUNT(fp.sk_pedido) / dl.populacao_cidade,2) AS "Itens por mil habitantes",
+    SUM(fp.qt_itens) AS 'Itens Totais',
+    ROUND(1000 * SUM(fp.qt_itens) / dl.populacao_cidade, 2) AS 'Itens por Mil Hab',
     ROUND(AVG(fp.dias_total_ate_entrega),1) AS "Tempo médio de entrega (dias)"
 FROM fato_pedido fp
 JOIN dim_loja dl ON dl.sk_loja = fp.sk_loja
